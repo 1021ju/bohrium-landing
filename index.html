@@ -119,13 +119,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: 0.875rem;
   font-weight: 600;
   color: #fff;
-  background: var(--accent-gradient);
+  background: var(--accent-blue);
   padding: 0.5rem 1.25rem;
   border-radius: var(--radius-sm);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: background var(--transition);
   letter-spacing: -0.01em;
 }
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(82, 130, 255, 0.3); }
+.nav-cta:hover { background: var(--accent-deep); }
 .nav-mobile-toggle { display: none; }
 
 /* ======================== HERO ======================== */
@@ -175,10 +175,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .hero h1 em {
   font-style: normal;
-  background: linear-gradient(135deg, #3ABFFF 0%, #00DEFF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-cyan);
+  text-decoration-thickness: 4px;
+  text-underline-offset: 4px;
 }
 .hero-sub {
   font-size: clamp(1.05rem, 1.5vw, 1.2rem);
@@ -201,18 +202,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 0.5rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #fff;
-  background: var(--accent-gradient);
+  color: var(--bg-deep);
+  background: #fff;
   padding: 0.75rem 1.75rem;
   border-radius: var(--radius-sm);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: background var(--transition), color var(--transition);
   letter-spacing: -0.01em;
   position: relative;
   z-index: 1;
 }
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(82, 130, 255, 0.35);
+  background: var(--accent-cyan);
+  color: #fff;
 }
 .btn-secondary {
   display: inline-flex;
@@ -220,39 +221,33 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 0.5rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.9);
   padding: 0.75rem 1.75rem;
   border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.12);
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(8px);
-  transition: background var(--transition), transform var(--transition);
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  transition: border-color var(--transition), color var(--transition);
   letter-spacing: -0.01em;
   position: relative;
   z-index: 1;
 }
-.btn-secondary:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
-/* Non-hero context buttons */
-.btn-primary--dark {
+.btn-secondary:hover { border-color: #fff; color: #fff; }
+/* Light-bg variant */
+.pricing-strip .btn-primary {
   color: #fff;
-  background: var(--accent-gradient);
+  background: var(--accent-blue);
 }
-.btn-secondary--light {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.8);
-  border-color: var(--border);
+.pricing-strip .btn-primary:hover {
+  background: var(--accent-deep);
 }
-.btn-secondary--light:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
 
 /* Hero search demo */
 .hero-demo {
   margin-top: clamp(3rem, 6vh, 5rem);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  background: #fff;
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -266,26 +261,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-light);
 }
-.demo-dots {
-  display: flex;
-  gap: 6px;
-}
-.demo-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--border);
-}
-.demo-dot:first-child { background: #f87171; }
-.demo-dot:nth-child(2) { background: #fbbf24; }
-.demo-dot:nth-child(3) { background: #34d399; }
+.demo-dots { display: none; }
+.demo-dot { display: none; }
 .demo-url {
   flex: 1;
   font-size: 0.8rem;
   color: var(--text-muted);
-  background: var(--surface);
-  padding: 0.375rem 0.875rem;
-  border-radius: 6px;
 }
 .demo-search {
   display: flex;
@@ -432,18 +413,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .sn-tab:hover { color: var(--text); }
 .sn-tab.active {
   color: #fff;
-  background: var(--accent-gradient);
+  background: var(--accent-blue);
   border-color: transparent;
 }
 .sn-panels { position: relative; }
 .sn-panel {
   display: none;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  background: #fff;
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: clamp(1.5rem, 3vw, 2.5rem);
-  box-shadow: var(--shadow-card);
 }
 .sn-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
 .sn-panel-text h3 {
@@ -496,7 +475,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-radius: 4px;
   margin-bottom: 0.75rem;
 }
-.sn-visual-bar:nth-child(1) { background: var(--accent-gradient); width: 85%; }
+.sn-visual-bar:nth-child(1) { background: var(--accent-blue); width: 85%; }
 .sn-visual-bar:nth-child(2) { background: var(--border); width: 65%; }
 .sn-visual-bar:nth-child(3) { background: var(--border); width: 45%; }
 .sn-visual-label {
@@ -677,9 +656,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 1.75rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-card);
+  background: #fff;
 }
 .testimonial-card blockquote {
   font-size: 0.95rem;
@@ -760,18 +737,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   z-index: 200;
   width: 56px;
   height: 56px;
-  background: var(--accent-gradient);
+  background: var(--accent-blue);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  box-shadow: 0 4px 16px rgba(82, 130, 255, 0.3);
-  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 12px rgba(82, 130, 255, 0.25);
+  transition: background var(--transition);
 }
 .faq-bubble:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 24px rgba(82, 130, 255, 0.4);
+  background: var(--accent-deep);
 }
 .faq-bubble svg { width: 24px; height: 24px; }
 .faq-bubble .close-icon { display: none; }
@@ -882,7 +858,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--accent-gradient);
+  background: var(--accent-blue);
   color: #fff;
   display: flex;
   align-items: center;
@@ -957,8 +933,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     </div>
     <div class="hero-demo fade-up" style="transition-delay: 0.15s">
       <div class="demo-topbar">
-        <div class="demo-dots"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span></div>
-        <div class="demo-url">bohrium.com/science-navigator</div>
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" style="flex-shrink:0"><circle cx="9" cy="9" r="6"/><path d="M13.5 13.5L17 17"/></svg>
+        <div class="demo-url">Science Navigator &middot; Expert Mode</div>
       </div>
       <div class="demo-search">
         <svg class="demo-search-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="6"/><path d="M13.5 13.5L17 17"/></svg>

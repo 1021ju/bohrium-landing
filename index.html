@@ -18,13 +18,13 @@
   --text-secondary: #4E5969;
   --text-muted: #86909C;
   --text-placeholder: #C9CDD4;
-  --accent-blue: #5B5FE6;
-  --accent-cyan: #3ABFFF;
-  --accent-deep: #4A4ED4;
-  --accent-gradient: linear-gradient(135deg, #5B5FE6 0%, #3ABFFF 50%, #1A53EF 100%);
-  --border: #DEDDF5;
-  --border-light: #E8E7F5;
-  --surface: #EEEDF8;
+  --accent-blue: #736CFF;
+  --accent-cyan: #3ED2FF;
+  --accent-deep: #5F58E8;
+  --accent-gradient: linear-gradient(135deg, #736CFF 0%, #3ED2FF 100%);
+  --border: #DDDCF0;
+  --border-light: #E6E5F2;
+  --surface: #ECEAF6;
   --radius-sm: 10px;
   --radius-md: 14px;
   --radius-lg: 20px;
@@ -38,7 +38,7 @@
   --space-2xl: 12rem;
   --max-w: 1200px;
   --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  --shadow-card: 0 8px 40px rgba(91, 95, 230, 0.1);
+  --shadow-card: 0 8px 40px rgba(115, 108, 255, 0.1);
 }
 
 /* ======================== RESET ======================== */
@@ -126,6 +126,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   letter-spacing: -0.01em;
 }
 .nav-cta:hover { background: var(--accent-deep); }
+.nav.scrolled .nav-cta { background: var(--accent-blue); }
+.nav.scrolled .nav-cta:hover { background: var(--accent-deep); }
 .nav-mobile-toggle { display: none; }
 
 /* ======================== HERO ======================== */
@@ -140,7 +142,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(27, 27, 47, 0.35);
+  background: linear-gradient(135deg, rgba(27, 27, 47, 0.45) 0%, rgba(50, 40, 90, 0.3) 100%);
 }
 .hero-content {
   max-width: 720px;
@@ -177,9 +179,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-style: normal;
   font-weight: 800;
   text-decoration: underline;
-  text-decoration-color: var(--accent-cyan);
+  text-decoration-color: #3ED2FF;
   text-decoration-thickness: 4px;
-  text-underline-offset: 4px;
+  text-underline-offset: 6px;
 }
 .hero-sub {
   font-size: clamp(1.05rem, 1.5vw, 1.2rem);
@@ -202,18 +204,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 0.5rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--bg-deep);
-  background: #fff;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   padding: 0.75rem 1.75rem;
   border-radius: var(--radius-sm);
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), border-color var(--transition);
   letter-spacing: -0.01em;
   position: relative;
   z-index: 1;
 }
 .btn-primary:hover {
-  background: var(--accent-cyan);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 .btn-secondary {
   display: inline-flex;
@@ -221,21 +226,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 0.5rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.7);
   padding: 0.75rem 1.75rem;
   border-radius: var(--radius-sm);
   background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
-  transition: border-color var(--transition), color var(--transition);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  transition: color var(--transition), border-color var(--transition);
   letter-spacing: -0.01em;
   position: relative;
   z-index: 1;
 }
-.btn-secondary:hover { border-color: #fff; color: #fff; }
-/* Light-bg variant */
+.btn-secondary:hover { border-color: rgba(255, 255, 255, 0.5); color: #fff; }
+/* Light-bg context */
 .pricing-strip .btn-primary {
   color: #fff;
   background: var(--accent-blue);
+  backdrop-filter: none;
+  border: none;
 }
 .pricing-strip .btn-primary:hover {
   background: var(--accent-deep);
@@ -326,7 +333,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--accent-blue);
-  background: rgba(91, 95, 230, 0.08);
+  background: rgba(115, 108, 255, 0.08);
   padding: 0.2rem 0.5rem;
   border-radius: 8px;
   margin-right: 0.375rem;
@@ -470,6 +477,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   overflow: hidden;
 }
+.sn-panel-visual::before, .sn-panel-visual::after {
+  content: '';
+  position: absolute;
+  border-radius: 20px;
+  filter: blur(40px);
+  opacity: 0.2;
+}
+.sn-panel-visual::before { width: 120px; height: 120px; background: #736CFF; top: -20px; right: 30px; transform: rotate(12deg); }
+.sn-panel-visual::after { width: 100px; height: 100px; background: #3ED2FF; bottom: -20px; left: 40px; transform: rotate(-10deg); }
 .sn-visual-bar {
   height: 8px;
   border-radius: 4px;
@@ -493,7 +509,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   overflow: hidden;
 }
-.workflow-section .section-label { color: rgba(91, 95, 230, 0.8); }
+.workflow-section .section-label { color: rgba(115, 108, 255, 0.8); }
 .workflow-section .section-heading { color: #fff; }
 .workflow-section .section-desc { color: rgba(255, 255, 255, 0.55); }
 .workflow-grid {
@@ -513,7 +529,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .workflow-step {
   font-family: var(--font-display);
   font-size: 0.8rem;
-  color: rgba(91, 95, 230, 0.6);
+  color: rgba(115, 108, 255, 0.6);
   letter-spacing: 0.04em;
   margin-bottom: 0.75rem;
 }
@@ -527,7 +543,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .workflow-card .tool {
   font-size: 0.8rem;
   font-weight: 600;
-  color: rgba(91, 95, 230, 0.7);
+  color: rgba(115, 108, 255, 0.7);
   margin-bottom: 0.75rem;
 }
 .workflow-card p {
@@ -635,7 +651,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 0.5rem;
   font-size: 0.875rem;
   color: var(--accent-blue);
-  background: rgba(91, 95, 230, 0.08);
+  background: rgba(115, 108, 255, 0.08);
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-weight: 600;
@@ -743,7 +759,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   align-items: center;
   justify-content: center;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(91, 95, 230, 0.25);
+  box-shadow: 0 4px 12px rgba(115, 108, 255, 0.25);
   transition: background var(--transition);
 }
 .faq-bubble:hover {
@@ -827,15 +843,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .faq-suggestion {
   font-size: 0.8rem;
   color: var(--accent-blue);
-  background: rgba(91, 95, 230, 0.05);
-  border: 1px solid rgba(91, 95, 230, 0.12);
+  background: rgba(115, 108, 255, 0.05);
+  border: 1px solid rgba(115, 108, 255, 0.12);
   padding: 0.5rem 0.875rem;
   border-radius: 8px;
   text-align: left;
   transition: background var(--transition);
   cursor: pointer;
 }
-.faq-suggestion:hover { background: rgba(91, 95, 230, 0.1); }
+.faq-suggestion:hover { background: rgba(115, 108, 255, 0.1); }
 .faq-input-area {
   padding: 0.875rem 1.5rem;
   border-top: 1px solid var(--border-light);
